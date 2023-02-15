@@ -1,0 +1,46 @@
+//Concept : call three recursive call as x y z and then return on particular cell as minimun of x,y,z and value of that cell
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int costpath(int **input, int m, int n,int i, int j) { //Brute Force
+  if (i == m - 1 and j == n - 1)
+    return input[i][j];
+ 
+    if(i > m-1 or j > n-1) //If i or j gets out of bound then return INT_MAX
+    return INT_MAX;        //
+   
+  int x = costpath(input,m,n, i, j + 1);
+  int y = costpath(input,m,n, i + 1, j + 1);
+  int z = costpath(input,m,n, i + 1, j);
+
+  return min(x, min(y, z)) + input[i][j];  
+}
+
+int minCostPath(int **input, int m, int n) 
+{
+	//Write your code here
+	return costpath(input,m,n,0,0);
+}
+
+
+int main()
+{
+	int **arr, n, m;
+	cin >> n >> m;
+	arr = new int *[n];
+	for (int i = 0; i < n; i++)
+	{
+		arr[i] = new int[m];
+	}
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < m; j++)
+		{
+			cin >> arr[i][j];
+		}
+	}
+	cout << minCostPath(arr, n, m) << endl;
+}
