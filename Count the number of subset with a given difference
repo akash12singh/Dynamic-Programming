@@ -1,0 +1,18 @@
+Problem link
+
+Approach:
+
+Whenever, encounter a new question try to find its related questions.
+In this question we have to find count the no of subsets with a given difference, let's simplify this into a well known problem
+
+sum(s1) - sum(s2) = diff --eq1;
+sum(s1) + sum(s) = SUM(arr) ----eqn2;
+
+
+summing both equations, we get sum(s1) = (diff + sum(arr))/2 ;
+
+Now this is converted into count no of subsets with given sum
+so always try to think the question with solved questions 
+
+code:
+same as subset sum, just add few lines to for above one;
