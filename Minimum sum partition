@@ -1,0 +1,83 @@
+Problem Link : https://practice.geeksforgeeks.org/problems/minimum-sum-partition3317/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
+
+Approach:
+
+Divide the problem into simpler form, if we see throughly we see we have to find subsets which difference should  be minimum .
+Now Question is how  to find these two  sets:
+
+we can do it by following way :
+
+1)Find the total sum which would be range
+2)Now, if we find |s2 - s1| , which can be also written as (range - s1 - s1) 
+and  it's become range - 2(s1)
+3)Now using concept of subset sum , make the matrix;
+4)Since last index tells us the information about sum 
+5)so using a vector of size n, fill the j values of matrix if dp[i][j] is true till range/2
+6)Now use a loop find the minimum in this vector using the logic  i.e.,  range - 2(s1)
+
+code
+
+#include <bits/stdc++.h>
+using namespace std;
+class Solution{
+  public:    
+        
+	int minDifference(int arr[], int n)  { 
+	    // Your code goes here
+	    int sum = 0;
+	    for(int i=0; i<n; i++)
+	    sum += arr[i];
+        vector<vector<bool>> dp(n+1, vector<bool> (sum+1, false)) ;
+        for(int i=0; i<n+1; i++){
+            for(int j=0; j<=sum; j++){
+                if(i==0)
+                dp[i][j] = false;
+                if(j==0)
+                dp[i][j] = true;
+            }
+        }
+        for(int i=1; i<=n; i++){
+            for(int j=1; j<=sum; j++){
+                if(arr[i-1] <= j)
+                dp[i][j] = (dp[i-1][j-arr[i-1]] or dp[i-1][j]);
+                else{
+                    dp[i][j] = dp[i-1][j];
+                }
+            }
+        }
+        vector<int>v;
+        for(int j=0; j<=sum/2; j++){
+            if(dp[n][j] == true)
+            v.push_back(j);
+        }
+        int minimum = INT_MAX;
+        for(int i=0; i<v.size(); i++){
+            minimum = min(minimum, sum-2*v[i]);
+        }
+
+	    return minimum;
+	} 
+};
+
+
+//{ Driver Code Starts.
+int main() 
+{   
+   	int t;
+    cin >> t;
+    while (t--)
+    {
+        int n;
+        cin >> n;
+
+        int a[n];
+        for(int i = 0; i < n; i++)
+        	cin >> a[i];
+    
+	   Solution ob;
+	    cout << ob.minDifference(a, n) << "\n";
+	     
+    }
+    return 0;
+}
+// } Driver Code Ends
