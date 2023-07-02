@@ -1,0 +1,42 @@
+Problem Link: https://practice.geeksforgeeks.org/problems/minimum-number-of-deletions-and-insertions0209/1
+
+Now we need to think how to find number of Insertions and number of deletions.
+First think of given inputs which are two strings, then one thing should clicked in mind is LCS
+How to use LCS here?
+example : str1 = "heap", str2 = "pea" and continuous common are "ea" 
+Now this is also LCS of both these strings.
+
+LCS count is 2 and str1 - lcs will give No of deletions and str2 - lcs will give no of insertions 
+Overall, No of deletions  = str1 - lcs 
+         No of Insertions = str2 - lcs
+
+and so total result is No of deletions + No of Insertions
+
+code:
+int minOperations(string str1, string str2) 
+	{ 
+	    // Your code goes here
+	    int l1 = str1.size(), l2 = str2.size();
+	    vector<vector<int>>dp(l1+1, vector<int>(l2+1));
+	    
+	    for(int i=0; i<=l1; i++){
+	        for(int j=0; j<=l2; j++){
+	            if(i == 0 or j == 0)
+	                dp[i][j] = 0;
+	        }
+	    }
+	    for(int i=1; i<=l1; i++){
+	        for(int j=1; j<=l2; j++){
+	            if(str1[i-1] == str2[j-1])
+	                    dp[i][j] = 1 + dp[i-1][j-1];
+	            else{
+	                    dp[i][j] = max(dp[i-1][j] , dp[i][j-1]);
+	            }
+	        }
+	    }
+	    int noOfDels = l1 - dp[l1][l2]; //deletions
+	    int noOfIns =  l2 - dp[l1][l2];  //insertions
+	    
+	    return noOfDels + noOfIns;  //result
+	    
+	} 
