@@ -1,0 +1,49 @@
+Link: https://practice.geeksforgeeks.org/problems/shortest-common-supersequence0322/1
+
+Approach:
+s1 = "abcd"
+s2 = "xycd"
+
+to find supersequence, the solution could be adding these two strings but it may not be shortest, 
+In worst case it would be true but not in all cases
+such as s1 + s2
+"abcdxycd" of  length 8 and 2nd possibility is abxycd of length 6 which is the shortest and order is followedas well as continuous
+
+so we need to two keep two things in mind, order is maintain and length of supersequence should be shortest
+
+Approach:
+if we see thoroughly, on removing the common will get the shortest supersequence and alse we know these have term called LCS
+overall : (length of s1 + length of s2) - lcs or (m + n - lcs)
+
+code:
+#include<bits/stdc++.h>
+using namespace std;
+
+class Solution
+{
+    public:
+    //Function to find length of shortest common supersequence of two strings.
+    int shortestCommonSupersequence(string x, string y, int m, int n)
+    {
+        //code here
+        //We need to find lcs of  both strigns  x and y 
+        double dp[m+1][n+1];
+        for(int i=0; i<=m; i++){
+            for(int j=0; j<=n; j++){
+                if(i==0 or j==0)
+                    dp[i][j] = 0;
+            }
+        }
+        for(int i=1; i<=m; i++){
+            for(int j=1; j<=n; j++){
+                if(x[i-1] == y[j-1])
+                    dp[i][j] = 1 + dp[i-1][j-1];
+                else{
+                    dp[i][j] = max(dp[i-1][j], dp[i][j-1]);                                
+                }
+            }
+        }
+        return m+n - dp[m][n];  //Calculation part
+        
+    }
+};
