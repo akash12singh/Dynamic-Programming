@@ -5,7 +5,7 @@ First think of given inputs which are two strings, then one thing should clicked
 How to use LCS here?
 example : str1 = "heap", str2 = "pea" and continuous common are "ea" 
 Now this is also LCS of both these strings.
-
+ 
 LCS count is 2 and str1 - lcs will give No of deletions and str2 - lcs will give no of insertions 
 Overall, No of deletions  = str1 - lcs 
          No of Insertions = str2 - lcs
