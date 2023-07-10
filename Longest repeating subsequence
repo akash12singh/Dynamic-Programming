@@ -1,1 +1,31 @@
+Longest repeating subsequence is another type based on LCS
+example:
+str = "axxzxy"
+Now to find longest repeating subsequence, we need another str which would be same as given string,i.e., str2 = "axxzxy".
+if we find lcs of these will get same string in ans, but that is not we have to find.
+so one thing we can do here is : at each index, we will not compare them if i == j means, if i=1 and j=1: skip the if condition and move to else condition
 
+code:
+
+//{ Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+		int LongestRepeatingSubsequence(string str1){
+		    // Code here
+		    int m = str1.size();
+		    string str2 = str1;
+		    vector<vector<int>>dp(m+1, vector<int>(m+1,0));
+		    
+		    for(int i=1; i<=m; i++){
+		        for(int j=1; j<=m; j++){
+		            if(str1[i-1] == str2[j-1] and i!=j) //added the condition i!=j
+		                dp[i][j] = 1 + dp[i-1][j-1];
+		            else{
+		                dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
+		            }
+		        }
+		    }
+		    return dp[m][m];		    
+		}
+};
