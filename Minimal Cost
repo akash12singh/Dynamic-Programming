@@ -1,0 +1,27 @@
+Problem Link: https://www.codingninjas.com/studio/problems/minimal-cost_8180930?utm_source=striver&utm_medium=website&utm_campaign=a_zcoursetuf&leftPanelTab=0
+
+Approach:
+pre-requisite: first understand the concept of frog Jump problem
+ref:
+
+Approach:
+
+Here, k is input so to find minimal cost we can iterate num of k times such as if i-j >=0 then find the values as discussed in the frog jump  problem
+
+int minimizeCost(int n, int k, vector<int> &height){
+    // Write your code here.
+    vector<int>dp(n);
+    dp[0] = 0;
+    
+    for(int i=1; i<n; i++){
+        int countSteps = INT_MAX;
+        for(int j=1; j<=k; j++){
+            if(i-j >= 0){
+                int steps = dp[i-j] + abs(height[i] - height[i-j]);
+                countSteps = min(steps,countSteps);
+            }
+        }
+        dp[i] = countSteps;
+    }
+    return dp[n-1];
+}
