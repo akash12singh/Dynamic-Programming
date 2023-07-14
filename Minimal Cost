@@ -2,11 +2,12 @@ Problem Link: https://www.codingninjas.com/studio/problems/minimal-cost_8180930?
 
 Approach:
 pre-requisite: first understand the concept of frog Jump problem
-ref:
+ref: https://github.com/akash12singh/Dynamic-Programming/blob/main/Frog%20Jump 
 
 Approach:
 
 Here, k is input so to find minimal cost we can iterate num of k times such as if i-j >=0 then find the values as discussed in the frog jump  problem
+example : if k is 5 given then for each i, inner loop will run for 5 times only condition is i-j should not be -ve and will take minimum of all
 
 int minimizeCost(int n, int k, vector<int> &height){
     // Write your code here.
