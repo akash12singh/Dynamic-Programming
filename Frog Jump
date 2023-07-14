@@ -28,3 +28,37 @@ int frogJump(int n, vector<int> &heights)
     vector<int> dp(n, -1); // Initialize dp vector with -1
     return frogjump_helper(0,heights,dp);
 }
+
+
+//Iterative (Top down approach)
+
+int frogJump(int n, vector<int> &heights)
+{
+    vector<int> dp(n); 
+    dp[0] = 0;
+
+   //Iterative
+   for(int i=1; i<n; i++){
+       int first_step = dp[i-1] + abs(heights[i] - heights[i-1]);
+       int two_step = INT_MAX;
+       if(i>1) two_step = dp[i-2] + abs(heights[i] - heights[i-2]);
+        
+       dp[i] = min(first_step, two_step);
+   }
+   return dp[n-1];
+}
+
+//Space Optimization(without using any vector just with two variables)
+int frogJump(int n, vector<int> &heights)
+{
+    int prev = 0, prev2 = 0;
+    for(int i=1; i<n; i++){
+         int first_step = prev + abs(heights[i] - heights[i-1]);
+           int two_step = INT_MAX;
+           if(i>1) two_step = prev2 + abs(heights[i] - heights[i-2]);
+           int curr = min(first_step, two_step);
+           prev2 = prev;
+           prev = curr;
+   }
+       return prev;
+}
