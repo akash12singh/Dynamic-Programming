@@ -1,1 +1,16 @@
 Problem Link: https://leetcode.com/problems/pascals-triangle-ii/
+
+Approach:
+Take a vector of size n+1 and fill it with 0. 
+Now initialize 0th index with 1
+then start the inner loop with current i till j > 0
+
+
+vector<int> getRow(int n) {
+        vector<int>v(n+1,0);
+        v[0] = 1;
+        for(int i=1; i<=n; i++){
+            for(int j=i; j>0; j--)
+                v[j] = v[j] + v[j-1];
+        }
+        return v;
